@@ -2,23 +2,28 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const downloadEmployeeData = () => {
+		fetch('http://localhost:80')
+			.then(response => {
+				response.blob().then(blob => {
+					let url = window.URL.createObjectURL(blob);
+					let a = document.createElement('a');
+					a.href = url;
+					a.download = 'Jerryl.pem';
+					a.click();
+				});
+				//window.location.href = response.url;
+		});
+	}
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div id="container">
+    <h1>Download File using React App</h1>
+    <h3>Download Employee Data using Button</h3>
+    <button onClick={downloadEmployeeData}>Download</button>
+    <p/>
+    <h3>Download Employee Data using Link</h3>
+    <a href="#" onClick={downloadEmployeeData}>Download</a>
+  </div>
   );
 }
 
